@@ -7,38 +7,70 @@
 			<div class="opponent-table"></div>
 		</div>
 		<div id="player-side">
-			<div class="player-table"></div>
-			<div class="player-hand">
-				<PotterCard :name="'Harry'" :color="'pink'" />
-				<PotterCard :name="'Albus'" :color="'yellow'" />
+			<div
+			@drop="onDrop($event, 1)"
+			@dragenter.prevent
+			@dragover.prevent
+			class="player-table"
+			>
+				<div v-for="card in getCards(1)" :key="card.name">
+					<PotterCard :name="card.name" :color="card.color" />
+				</div>
+			</div>
+			<div
+			class="player-hand"
+			>
+				<div @dragstart="startDrag($event, card)" draggable="true" v-for="card in getCards(2)" :key="card.name">
+					<PotterCard :name="card.name" :color="card.color" />
+				</div>
 			</div>
 		</div>
 	</div>
 </template>
 <script>
 	import PotterCard from '@/components/PotterCard.vue'
-	import dragula from 'dragula'
+	import { ref } from 'vue'
+
 	export default {
 		name: 'BoardView',
-		methods: {
-			drag() {
-				dragula([document.querySelector('.player-hand'), document.querySelector('.player-table')], {
-					moves: (el, source) => {
-						return source === document.querySelector('.player-hand')
-					},
-					accepts: (el, target) => {
-						return target === document.querySelector('.player-table')
-					},
-					direction: 'horizontal',
-					revertOnSpill: true,
-					removeOnSpill: false,
-					mirrorContainer: document.body,
-					ignoreInputTextSelection: true,
-				})
-			},
+
+		setup() {
+			const cards = ref([
+				{ id: 0, name: 'Harry', color: 'pink', list: 1 },
+				{ id: 1, name: 'Albus', color: 'yellow', list: 2 },
+				{ id: 2, name: 'Neville', color: 'red', list: 2 },
+			])
+
+			const getCards = (list) => {
+				return cards.value.filter((card) => card.list == list)
+			}
+
+			const startDrag = (event, card) => {
+				console.log(card)
+				event.dataTransfer.dropEffect = 'move'
+				event.dataTransfer.effectAllowed = 'move'
+				event.dataTransfer.setData('cardID', card.id)
+			}
+
+			const onDrop = (event, list) => {
+				const cardID = event.dataTransfer.getData('cardID')
+				console.log('list ', list)
+				const card = cards.value.find((card) => card.id == cardID)
+				console.log('card ', card, cards.value)
+				card.list = list
+			}
+
+			return {
+				getCards,
+				onDrop,
+				startDrag
+			}
 		},
-		mounted() {
-			this.drag()
+
+		methods: {
+			log(event) {
+				console.log(event)
+			},
 		},
 		components: { PotterCard },
 	}
