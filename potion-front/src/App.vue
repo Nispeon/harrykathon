@@ -9,7 +9,6 @@
          url('~@/assets/font/webfont/ringbearermedium-51mgz-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
-
 }
 
 * {
@@ -23,9 +22,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
-  background-image: url('~@/assets/hogwart.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+  background-color: black;
 }
 </style>
