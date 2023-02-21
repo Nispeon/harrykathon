@@ -22,8 +22,8 @@
   font-family: 'ringbearermedium';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #535bf2;
   min-height: 100vh;
-  background-image: url('~@/assets/hogwart.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
