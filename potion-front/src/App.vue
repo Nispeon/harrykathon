@@ -9,7 +9,6 @@
          url('~@/assets/font/webfont/ringbearermedium-51mgz-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
-
 }
 
 * {
@@ -24,8 +23,6 @@
   -moz-osx-font-smoothing: grayscale;
   background-color: #535bf2;
   min-height: 100vh;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+  background-color: black;
 }
 </style>
