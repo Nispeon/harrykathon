@@ -1,5 +1,8 @@
 <template>
 	<section class="cards">
+		<span>Player 1 :{{ scorePlayer1 }}</span>
+		<span>Player 2 :{{ scorePlayer2 }}</span>
+		<span>Joueur :{{ turn }}</span>
 		<div
 			v-for="card in cards"
 			:key="card.slug"
@@ -16,11 +19,19 @@
 		components: {
 			PotterCard,
 		},
-		data() {
-			return {
-				checker: [],
-				cards: this.$store.state.cards,
-			}
+		computed: {
+			scorePlayer1() {
+				return this.$store.state.scorePlayer1
+			},
+			scorePlayer2() {
+				return this.$store.state.scorePlayer2
+			},
+			turn() {
+				return this.$store.state.turn
+			},
+			cards() {
+				return this.$store.state.cards
+			},
 		},
 		created() {
 			let array = []
