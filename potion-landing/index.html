@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>POC</title>
+  <title>MemHarry</title>
   <style>
     @font-face {
       font-family: 'ringbearermedium';
@@ -29,7 +29,7 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 15rem;
+      font-size: 12rem;
       color: goldenrod;
       text-decoration: none;
     }
@@ -41,6 +41,9 @@
 <body>
 <canvas id="bg"></canvas>
 <a href="http://localhost:8080">Start</a>
+<audio loop id="audio">
+  <source src="./assets/music/menuloop.mp3" type="audio/mp3">
+</audio>
 </body>
 
 <script type="module">
@@ -55,6 +58,21 @@
   import potionModel from './assets/models/potion/scene.gltf?url';
   import cauldronModel from './assets/models/cauldron/scene.gltf?url';
   import hagridModel from './assets/models/hagrid/hagrid.glb?url';
+
+  window.addEventListener('resize', () => {
+      window.location.reload();
+  });
+
+  let playAttempt = setInterval(() => {
+  document.querySelector("#audio")
+          .play()
+          .then(() => {
+            clearInterval(playAttempt);
+          })
+          .catch((error) => {
+            console.log("Unable to play the video, User has not interacted yet.");
+          });
+  }, 1000);
 
   const scene = new THREE.Scene();
 
@@ -151,8 +169,8 @@
     const hagridData = await gltfLoader.loadAsync(hagridModel);
 
     hagrid = hagridData.scene;
-    hagrid.position.set(0, -12, 0);
-    hagrid.scale.set(0.0007, 0.0007, 0.0007);
+    hagrid.position.set(0, -12, 3);
+    hagrid.scale.set(0.001, 0.001, 0.001);
 
     const glow = new THREE.PointLight(0xff0000, 1, 100);
     glow.position.set(0, 0, 0);
