@@ -1,5 +1,6 @@
 import express from 'express'
 import bodyParser from 'body-parser'
+import router from './router.js'
 import sequelize from './database.js'
 import cors from 'cors'
 import morgan from 'morgan'
@@ -17,6 +18,8 @@ sequelize
 		console.log('Connection has been established successfully.')
 
 		app.use(cors())
+
+    app.use('/api', router)
 
 		app.use(bodyParser.json())
 		app.use(morgan('dev'))

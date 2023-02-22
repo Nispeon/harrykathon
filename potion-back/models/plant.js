@@ -16,10 +16,6 @@ const Plant = database.define('plant', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  level: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  }
 })
 
 export default Plant
