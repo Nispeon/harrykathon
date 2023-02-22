@@ -2,65 +2,53 @@
 	<div class="board">
 		<div id="player-side">
 			<div
-			@drop="onDrop($event, 1)"
+			@drop="onDrop($event, 'pot')"
 			@dragenter.prevent
 			@dragover.prevent
 			class="player-table"
 			>
-				<div v-for="card in getCards(1)" :key="card.name">
-					<PotterCard :name="card.name" :color="card.color" />
+				<div v-for="card in getCards('pot')" :key="card.name">
+					<PotterCard
+					@dragstart="startDrag($event, card)"
+					draggable="true"
+					:name="card.name"
+					:color="card.color" 
+					/>
 				</div>
 			</div>
 			<div
 			class="player-hand"
 			>
-
-				<div @dragstart="startDrag($event, card)" draggable="true" v-for="card in getCards(2)" :key="card.name">
-					<PotterCard :name="card.name" :color="card.color" />
+				<div v-for="card in getCards('hand')" :key="card.name">
+					<PotterCard 
+					@dragstart="startDrag($event, card)"
+					draggable="true"
+					:name="card.name"
+					:color="card.color"
+					/>
 				</div>
 			</div>
 		</div>
-		<PotterCauldron />
+		<PlayerHand
+		:onDrop="onDrop"
+		:getCards="getCards"
+		/>
 	</div>
 </template>
 <script>
 	import PotterCard from '@/components/PotterCard.vue'
-	import PotterCauldron from '@/components/PotterCauldron.vue'
-	import { ref } from 'vue'
+	import PlayerHand from '@/components/PlayerHand.vue'
 
 	export default {
 		name: 'BoardView',
 
-		setup() {
-			const cards = ref([
-				{ id: 0, name: 'Harry', color: 'pink', list: 1 },
-				{ id: 1, name: 'Albus', color: 'yellow', list: 2 },
-				{ id: 2, name: 'Neville', color: 'red', list: 2 },
-			])
-
-			const getCards = (list) => {
-				return cards.value.filter((card) => card.list == list)
-			}
-
-			const startDrag = (event, card) => {
-				console.log(card)
-				event.dataTransfer.dropEffect = 'move'
-				event.dataTransfer.effectAllowed = 'move'
-				event.dataTransfer.setData('cardID', card.id)
-			}
-
-			const onDrop = (event, list) => {
-				const cardID = event.dataTransfer.getData('cardID')
-				console.log('list ', list)
-				const card = cards.value.find((card) => card.id == cardID)
-				console.log('card ', card, cards.value)
-				card.list = list
-			}
-
+		data() {
 			return {
-				getCards,
-				onDrop,
-				startDrag
+				cards:[
+					{ id: 0, name: 'lvl1', color: 'green', location: 'pot' },
+					{ id: 1, name: 'lvl2', color: 'blue', location: 'hand' },
+					{ id: 2, name: 'lvl0', color: 'red', location: 'hand' },
+				]
 			}
 		},
 
@@ -68,10 +56,40 @@
 			log(event) {
 				console.log(event)
 			},
+
+			getCards(location) {
+				return this.cards.filter((card) => card.location == location)
+			},
+
+			startDrag (event, card) {
+				event.dataTransfer.dropEffect = 'move'
+				event.dataTransfer.effectAllowed = 'move'
+				event.dataTransfer.setData('cardID', card.id)
+			},
+
+			onDrop (event, destination) {
+				const cardID = event.dataTransfer.getData('cardID')
+				const card = this.cards.find((card) => card.id == cardID)
+
+				if (card.location == destination) {
+					return
+				} else if (destination == 'cauldron' && card.location != 'pot') {
+					return
+				}
+				
+				if (destination == 'cauldron') {
+					// remove card from cards
+					this.cards = this.cards.filter((card) => card.id != cardID)
+					console.log('cards ', this.cards)
+				} else {
+					card.location = destination
+				}
+			},
 		},
+
 		components: {
 			PotterCard,
-			PotterCauldron
+			PlayerHand,
 		},
 	}
 </script>
@@ -105,7 +123,7 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
-		background-color: red;
+		background-color: grey;
 		width: 100vw;
 		height: 20vh;
 	}
@@ -114,7 +132,7 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
-		background-color: red;
+		background-color: grey;
 		width: 100vw;
 		height: 20vh;
 	}
