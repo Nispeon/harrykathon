@@ -1,181 +1,46 @@
 <template>
 	<section class="cards">
+		<span>Player 1 :{{ scorePlayer1 }}</span>
+		<span>Player 2 :{{ scorePlayer2 }}</span>
+		<span>Joueur :{{ turn }}</span>
 		<div
 			v-for="card in cards"
 			:key="card.slug"
 			class="card"
 		>
-			<img
-				@click="checkCard(card.slug)"
-				:class="card.slug"
-				:src="card.image"
-				:alt="card.name"
-			/>
+			<PotterCard :card="card" />
 		</div>
 	</section>
 </template>
 <script>
+	import PotterCard from '@/components/PotterCard.vue'
 	export default {
 		name: 'CardsGame',
-		data() {
-			return {
-				checker: [],
-				cards: [
-					{
-						slug: 'aatrox',
-						image: require('@/assets/profils/tile000.png'),
-					},
-					{
-						slug: 'akali',
-						image: require('@/assets/profils/tile001.png'),
-					},
-					{
-						slug: 'belveth',
-						image: require('@/assets/profils/tile002.png'),
-					},
-					{
-						slug: 'caitlyn',
-						image: require('@/assets/profils/tile003.png'),
-					},
-					{
-						slug: 'cassiopeia',
-						image: require('@/assets/profils/tile004.png'),
-					},
-					{
-						slug: 'diana',
-						image: require('@/assets/profils/tile005.png'),
-					},
-					{
-						slug: 'fiddlesticks',
-						image: require('@/assets/profils/tile006.png'),
-					},
-					{
-						slug: 'graves',
-						image: require('@/assets/profils/tile007.png'),
-					},
-					{
-						slug: 'irelia',
-						image: require('@/assets/profils/tile008.png'),
-					},
-					{
-						slug: 'ivern',
-						image: require('@/assets/profils/tile000.png'),
-					},
-					{
-						slug: 'leblanc',
-						image: require('@/assets/profils/tile009.png'),
-					},
-					{
-						slug: 'leesin',
-						image: require('@/assets/profils/tile010.png'),
-					},
-					{
-						slug: 'neeko',
-						image: require('@/assets/profils/tile011.png'),
-					},
-					{
-						slug: 'qiyana',
-						image: require('@/assets/profils/tile012.png'),
-					},
-					//here
-					{
-						slug: 'aatrox',
-						image: require('@/assets/profils/tile000.png'),
-					},
-					{
-						slug: 'akali',
-						image: require('@/assets/profils/tile001.png'),
-					},
-					{
-						slug: 'belveth',
-						image: require('@/assets/profils/tile002.png'),
-					},
-					{
-						slug: 'caitlyn',
-						image: require('@/assets/profils/tile003.png'),
-					},
-					{
-						slug: 'cassiopeia',
-						image: require('@/assets/profils/tile004.png'),
-					},
-					{
-						slug: 'diana',
-						image: require('@/assets/profils/tile005.png'),
-					},
-					{
-						slug: 'fiddlesticks',
-						image: require('@/assets/profils/tile006.png'),
-					},
-					{
-						slug: 'graves',
-						image: require('@/assets/profils/tile007.png'),
-					},
-					{
-						slug: 'irelia',
-						image: require('@/assets/profils/tile008.png'),
-					},
-					{
-						slug: 'ivern',
-						image: require('@/assets/profils/tile000.png'),
-					},
-					{
-						slug: 'leblanc',
-						image: require('@/assets/profils/tile009.png'),
-					},
-					{
-						slug: 'leesin',
-						image: require('@/assets/profils/tile010.png'),
-					},
-					{
-						slug: 'neeko',
-						image: require('@/assets/profils/tile011.png'),
-					},
-					{
-						slug: 'qiyana',
-						image: require('@/assets/profils/tile012.png'),
-					},
-				],
-			}
+		components: {
+			PotterCard,
 		},
-		methods: {
-			checkCard(slug) {
-				this.checker.push(slug)
-				this.flipCard(slug)
-
-				if (this.checker.length === 2) {
-					if (
-						this.checker[0] === this.checker[1] + '-2' ||
-						this.checker[0] + '-2' === this.checker[1]
-					) {
-						console.log('match')
-					} else {
-						console.log('no match')
-
-						this.checker.forEach((slug) => {
-							setTimeout(() => {
-								document.querySelector('.' + slug).classList.remove('flip')
-							}, 1000)
-						})
-					}
-					this.checker = []
-				}
+		computed: {
+			scorePlayer1() {
+				return this.$store.state.scorePlayer1
 			},
-
-			flipCard(slug) {
-				document.querySelector('.' + slug).classList.add('flip')
+			scorePlayer2() {
+				return this.$store.state.scorePlayer2
+			},
+			turn() {
+				return this.$store.state.turn
+			},
+			cards() {
+				return this.$store.state.cards
 			},
 		},
 		created() {
-			let array = []
-			this.cards.forEach((card) => {
-				array.push(card)
-				if (array.filter((item) => item.slug === card.slug).length > 1) {
-					card.slug = card.slug + '-2'
-				}
+			this.$store.commit('getCards')
+			this.$socket.on('setBoard', (board) => {
+				this.$store.state.cards = board
 			})
-			this.cards = array
-			this.cards.sort(() => Math.random() - 0.5)
-			console.log(this.cards.length)
+			this.$socket.on('flipCard', (slug) => {
+				this.$store.commit('checkCard', slug)
+			})
 		},
 	}
 </script>
@@ -203,5 +68,9 @@
 
 	.flip {
 		opacity: 1 !important;
+	}
+
+	.disabled {
+		opacity: 0.5 !important;
 	}
 </style>

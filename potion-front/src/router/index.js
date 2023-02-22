@@ -14,22 +14,26 @@ const routes = [
   {
     path: '/board',
     name: 'board',
-    component: BoardView
+    component: BoardView,
+    beforeEnter: auth
   },
   {
     path: '/create',
     name: 'create',
-    component: () => import('../views/CreateView.vue')
+    component: () => import('../views/CreateView.vue'),
+    beforeEnter: auth
   },
   {
     path: '/join',
     name: 'join',
-    component: () => import('../views/JoinView.vue')
+    component: () => import('../views/JoinView.vue'),
+    beforeEnter: auth
   },
   {
     path: '/settings',
     name: 'settings',
-    component: () => import('../views/SettingsView.vue')
+    component: () => import('../views/SettingsView.vue'),
+    beforeEnter: auth
   },
   {
     path: '/login',

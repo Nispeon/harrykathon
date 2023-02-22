@@ -5,13 +5,17 @@ import store from './store'
 import {io} from 'socket.io-client'
 
 const app = createApp(App)
+const globals = app.config.globalProperties
 
+globals.$socket = io('http://localhost:3000', {
+  transports: ['websocket', 'polling'],
+}) 
 app.use(store)
 app.use(router)
 
-app.config.globalProperties.$socket = io('http://localhost:3000', {
-  transports: ['websocket', 'polling'],
-}) 
+export { globals }
+
+
 
 
 app.mount('#app')
