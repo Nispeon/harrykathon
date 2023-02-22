@@ -1,5 +1,6 @@
 <template>
 		<img
+				draggable="false"
 				@click="checkCard(card.slug)"
 				:class="card.slug"
 				:src="require('@/assets/profils/' + card.image)"
