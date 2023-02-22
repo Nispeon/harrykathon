@@ -5,164 +5,22 @@
 			:key="card.slug"
 			class="card"
 		>
-			<img
-				@click="checkCard(card.slug)"
-				:class="card.slug"
-				:src="card.image"
-				:alt="card.name"
-			/>
+			<PotterCard :card="card" />
 		</div>
 	</section>
 </template>
 <script>
+	import PotterCard from '@/components/PotterCard.vue'
 	export default {
 		name: 'CardsGame',
+		components: {
+			PotterCard,
+		},
 		data() {
 			return {
 				checker: [],
-				cards: [
-					{
-						slug: 'aatrox',
-						image: require('@/assets/champions/aatrox.jpeg'),
-					},
-					{
-						slug: 'akali',
-						image: require('@/assets/champions/akali.jpeg'),
-					},
-					{
-						slug: 'belveth',
-						image: require('@/assets/champions/belveth.jpeg'),
-					},
-					{
-						slug: 'caitlyn',
-						image: require('@/assets/champions/caitlyn.jpeg'),
-					},
-					{
-						slug: 'cassiopeia',
-						image: require('@/assets/champions/cassiopeia.jpeg'),
-					},
-					{
-						slug: 'diana',
-						image: require('@/assets/champions/diana.jpeg'),
-					},
-					{
-						slug: 'fiddlesticks',
-						image: require('@/assets/champions/fiddlesticks.jpeg'),
-					},
-					{
-						slug: 'graves',
-						image: require('@/assets/champions/graves.jpeg'),
-					},
-					{
-						slug: 'irelia',
-						image: require('@/assets/champions/irelia.jpeg'),
-					},
-					{
-						slug: 'ivern',
-						image: require('@/assets/champions/ivern.jpeg'),
-					},
-					{
-						slug: 'leblanc',
-						image: require('@/assets/champions/leblanc.jpeg'),
-					},
-					{
-						slug: 'leesin',
-						image: require('@/assets/champions/leesin.jpeg'),
-					},
-					{
-						slug: 'neeko',
-						image: require('@/assets/champions/neeko.jpeg'),
-					},
-					{
-						slug: 'qiyana',
-						image: require('@/assets/champions/qiyana.jpeg'),
-					},
-					{
-						slug: 'aatrox',
-						image: require('@/assets/champions/aatrox.jpeg'),
-					},
-					{
-						slug: 'akali',
-						image: require('@/assets/champions/akali.jpeg'),
-					},
-					{
-						slug: 'belveth',
-						image: require('@/assets/champions/belveth.jpeg'),
-					},
-					{
-						slug: 'caitlyn',
-						image: require('@/assets/champions/caitlyn.jpeg'),
-					},
-					{
-						slug: 'cassiopeia',
-						image: require('@/assets/champions/cassiopeia.jpeg'),
-					},
-					{
-						slug: 'diana',
-						image: require('@/assets/champions/diana.jpeg'),
-					},
-					{
-						slug: 'fiddlesticks',
-						image: require('@/assets/champions/fiddlesticks.jpeg'),
-					},
-					{
-						slug: 'graves',
-						image: require('@/assets/champions/graves.jpeg'),
-					},
-					{
-						slug: 'irelia',
-						image: require('@/assets/champions/irelia.jpeg'),
-					},
-					{
-						slug: 'ivern',
-						image: require('@/assets/champions/ivern.jpeg'),
-					},
-					{
-						slug: 'leblanc',
-						image: require('@/assets/champions/leblanc.jpeg'),
-					},
-					{
-						slug: 'leesin',
-						image: require('@/assets/champions/leesin.jpeg'),
-					},
-					{
-						slug: 'neeko',
-						image: require('@/assets/champions/neeko.jpeg'),
-					},
-					{
-						slug: 'qiyana',
-						image: require('@/assets/champions/qiyana.jpeg'),
-					},
-				],
+				cards: this.$store.state.cards,
 			}
-		},
-		methods: {
-			checkCard(slug) {
-				this.checker.push(slug)
-				this.flipCard(slug)
-
-				if (this.checker.length === 2) {
-					if (
-						this.checker[0] === this.checker[1] + '-2' ||
-						this.checker[0] + '-2' === this.checker[1]
-					) {
-						console.log('match')
-					} else {
-						console.log('no match')
-
-						this.checker.forEach((slug) => {
-							setTimeout(() => {
-								document.querySelector('.' + slug).classList.remove('flip')
-							}, 1000)
-						})
-					}
-					this.checker = []
-				}
-			},
-
-			flipCard(slug) {
-				document.querySelector('.' + slug).classList.add('flip')
-			},
 		},
 		created() {
 			let array = []
@@ -202,5 +60,9 @@
 
 	.flip {
 		opacity: 1 !important;
+	}
+
+	.disabled {
+		opacity: 0.5 !important;
 	}
 </style>
