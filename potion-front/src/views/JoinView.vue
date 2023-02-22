@@ -4,8 +4,7 @@
         <div class="join-container">
             <h2 class="join-title">Enter code</h2>
             <input type="text" name="code" id="code" v-model="code">
-            <button @click="goTo('home')" v-if="this.value !== ''">Join</button>
-            <button @click="goTo('home')" v-else disabled>Join</button>
+            <button @click="goTo('home')">Join</button>
         </div>
     </div>
 </template>
