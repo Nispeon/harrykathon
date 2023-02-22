@@ -1,6 +1,46 @@
 <template>
-  <router-view/>
+	<div>
+		<nav v-if="user">
+			<span>{{ user.user.name }}</span>
+			<button @click="logout">Logout</button>
+		</nav>
+
+		<router-view/>
+	</div>
 </template>
+
+<script>
+	export default {
+		name: 'App',
+		computed: {
+			user() {
+				return this.$store.state.user
+			},
+		},
+		methods: {
+			login() {
+				// redirect to login
+				this.$router.push({ name: 'login' })
+			},
+			logout() {
+				// remove user from local storage
+				localStorage.removeItem('user')
+
+				this.$store.commit('clearUser')
+
+				// redirect to login
+				this.$router.push({ name: 'login' })
+			},
+		},
+		mounted() {
+			// check if user is already logged in
+			const user = localStorage.getItem('user')
+			if (user) {
+				this.$store.commit('setUser', JSON.parse(user))
+			}
+		}
+	}
+</script>
 
 <style>
 @font-face {

@@ -1,139 +1,206 @@
 <template>
-	<div class="board">
-		<div id="player-side">
-			<div
-			@drop="onDrop($event, 1)"
-			@dragenter.prevent
-			@dragover.prevent
-			class="player-table"
-			>
-				<div v-for="card in getCards(1)" :key="card.name">
-					<PotterCard :name="card.name" :color="card.color" />
-				</div>
-			</div>
-			<div
-			class="player-hand"
-			>
-
-				<div @dragstart="startDrag($event, card)" draggable="true" v-for="card in getCards(2)" :key="card.name">
-					<PotterCard :name="card.name" :color="card.color" />
-				</div>
-			</div>
+	<section class="cards">
+		<div
+			v-for="card in cards"
+			:key="card.slug"
+			class="card"
+		>
+			<img
+				@click="checkCard(card.slug)"
+				:class="card.slug"
+				:src="card.image"
+				:alt="card.name"
+			/>
 		</div>
-		<PotterCauldron />
-	</div>
+	</section>
 </template>
 <script>
-	import PotterCard from '@/components/PotterCard.vue'
-	import PotterCauldron from '@/components/PotterCauldron.vue'
-	import { ref } from 'vue'
-
 	export default {
-		name: 'BoardView',
-
-		setup() {
-			const cards = ref([
-				{ id: 0, name: 'Harry', color: 'pink', list: 1 },
-				{ id: 1, name: 'Albus', color: 'yellow', list: 2 },
-				{ id: 2, name: 'Neville', color: 'red', list: 2 },
-			])
-
-			const getCards = (list) => {
-				return cards.value.filter((card) => card.list == list)
-			}
-
-			const startDrag = (event, card) => {
-				console.log(card)
-				event.dataTransfer.dropEffect = 'move'
-				event.dataTransfer.effectAllowed = 'move'
-				event.dataTransfer.setData('cardID', card.id)
-			}
-
-			const onDrop = (event, list) => {
-				const cardID = event.dataTransfer.getData('cardID')
-				console.log('list ', list)
-				const card = cards.value.find((card) => card.id == cardID)
-				console.log('card ', card, cards.value)
-				card.list = list
-			}
-
+		name: 'CardsGame',
+		data() {
 			return {
-				getCards,
-				onDrop,
-				startDrag
+				checker: [],
+				cards: [
+					{
+						slug: 'aatrox',
+						image: require('@/assets/champions/aatrox.jpeg'),
+					},
+					{
+						slug: 'akali',
+						image: require('@/assets/champions/akali.jpeg'),
+					},
+					{
+						slug: 'belveth',
+						image: require('@/assets/champions/belveth.jpeg'),
+					},
+					{
+						slug: 'caitlyn',
+						image: require('@/assets/champions/caitlyn.jpeg'),
+					},
+					{
+						slug: 'cassiopeia',
+						image: require('@/assets/champions/cassiopeia.jpeg'),
+					},
+					{
+						slug: 'diana',
+						image: require('@/assets/champions/diana.jpeg'),
+					},
+					{
+						slug: 'fiddlesticks',
+						image: require('@/assets/champions/fiddlesticks.jpeg'),
+					},
+					{
+						slug: 'graves',
+						image: require('@/assets/champions/graves.jpeg'),
+					},
+					{
+						slug: 'irelia',
+						image: require('@/assets/champions/irelia.jpeg'),
+					},
+					{
+						slug: 'ivern',
+						image: require('@/assets/champions/ivern.jpeg'),
+					},
+					{
+						slug: 'leblanc',
+						image: require('@/assets/champions/leblanc.jpeg'),
+					},
+					{
+						slug: 'leesin',
+						image: require('@/assets/champions/leesin.jpeg'),
+					},
+					{
+						slug: 'neeko',
+						image: require('@/assets/champions/neeko.jpeg'),
+					},
+					{
+						slug: 'qiyana',
+						image: require('@/assets/champions/qiyana.jpeg'),
+					},
+					{
+						slug: 'aatrox',
+						image: require('@/assets/champions/aatrox.jpeg'),
+					},
+					{
+						slug: 'akali',
+						image: require('@/assets/champions/akali.jpeg'),
+					},
+					{
+						slug: 'belveth',
+						image: require('@/assets/champions/belveth.jpeg'),
+					},
+					{
+						slug: 'caitlyn',
+						image: require('@/assets/champions/caitlyn.jpeg'),
+					},
+					{
+						slug: 'cassiopeia',
+						image: require('@/assets/champions/cassiopeia.jpeg'),
+					},
+					{
+						slug: 'diana',
+						image: require('@/assets/champions/diana.jpeg'),
+					},
+					{
+						slug: 'fiddlesticks',
+						image: require('@/assets/champions/fiddlesticks.jpeg'),
+					},
+					{
+						slug: 'graves',
+						image: require('@/assets/champions/graves.jpeg'),
+					},
+					{
+						slug: 'irelia',
+						image: require('@/assets/champions/irelia.jpeg'),
+					},
+					{
+						slug: 'ivern',
+						image: require('@/assets/champions/ivern.jpeg'),
+					},
+					{
+						slug: 'leblanc',
+						image: require('@/assets/champions/leblanc.jpeg'),
+					},
+					{
+						slug: 'leesin',
+						image: require('@/assets/champions/leesin.jpeg'),
+					},
+					{
+						slug: 'neeko',
+						image: require('@/assets/champions/neeko.jpeg'),
+					},
+					{
+						slug: 'qiyana',
+						image: require('@/assets/champions/qiyana.jpeg'),
+					},
+				],
 			}
 		},
-
 		methods: {
-			log(event) {
-				console.log(event)
+			checkCard(slug) {
+				this.checker.push(slug)
+				this.flipCard(slug)
+
+				if (this.checker.length === 2) {
+					if (
+						this.checker[0] === this.checker[1] + '-2' ||
+						this.checker[0] + '-2' === this.checker[1]
+					) {
+						console.log('match')
+					} else {
+						console.log('no match')
+
+						this.checker.forEach((slug) => {
+							setTimeout(() => {
+								document.querySelector('.' + slug).classList.remove('flip')
+							}, 1000)
+						})
+					}
+					this.checker = []
+				}
+			},
+
+			flipCard(slug) {
+				document.querySelector('.' + slug).classList.add('flip')
 			},
 		},
-		components: {
-			PotterCard,
-			PotterCauldron
+		created() {
+			let array = []
+			this.cards.forEach((card) => {
+				array.push(card)
+				if (array.filter((item) => item.slug === card.slug).length > 1) {
+					card.slug = card.slug + '-2'
+				}
+			})
+			this.cards = array
+			this.cards.sort(() => Math.random() - 0.5)
+			console.log(this.cards)
 		},
 	}
 </script>
 <style>
-	.board {
-		width: 100vw;
-		height: 100vh;
+	.cards {
+		padding: 20px;
 		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
+		justify-content: space-around;
+		flex-wrap: wrap;
+		gap: 60px;
 	}
 
-	#opponent-side {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		background-color: blue;
+	.card {
+		height: 120px;
+		width: 80px;
+		background-color: bisque;
+	}
+
+	.card img {
 		width: 100%;
-		height: 50vh;
+		height: 100%;
+		object-fit: cover;
+		opacity: 0;
 	}
 
-	#player-side {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		background-color: blue;
-		height: 50vh;
-	}
-
-	.opponent-hand {
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		background-color: red;
-		width: 100vw;
-		height: 20vh;
-	}
-
-	.player-hand {
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		background-color: red;
-		width: 100vw;
-		height: 20vh;
-	}
-
-	.opponent-table {
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		background-color: black;
-		width: 100%;
-		height: 20vh;
-	}
-
-	.player-table {
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		background-color: black;
-		width: 100%;
-		height: 20vh;
+	.flip {
+		opacity: 1 !important;
 	}
 </style>
