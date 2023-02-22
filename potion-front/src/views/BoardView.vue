@@ -34,16 +34,13 @@
 			},
 		},
 		created() {
-			let array = []
-			this.cards.forEach((card) => {
-				array.push(card)
-				if (array.filter((item) => item.slug === card.slug).length > 1) {
-					card.slug = card.slug + '-2'
-				}
+			this.$store.commit('getCards')
+			this.$socket.on('setBoard', (board) => {
+				this.$store.state.cards = board
 			})
-			this.cards = array
-			this.cards.sort(() => Math.random() - 0.5)
-			console.log(this.cards.length)
+			this.$socket.on('flipCard', (slug) => {
+				this.$store.commit('checkCard', slug)
+			})
 		},
 	}
 </script>
