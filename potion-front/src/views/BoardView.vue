@@ -20,12 +20,12 @@
 				</div>
 			</div>
 		</div>
-		<Cauldron />
+		<PotterCauldron />
 	</div>
 </template>
 <script>
 	import PotterCard from '@/components/PotterCard.vue'
-	import Cauldron from '@/components/Cauldron.vue'
+	import PotterCauldron from '@/components/PotterCauldron.vue'
 	import { ref } from 'vue'
 
 	export default {
@@ -71,7 +71,7 @@
 		},
 		components: {
 			PotterCard,
-			Cauldron
+			PotterCauldron
 		},
 	}
 </script>
