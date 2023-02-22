@@ -1,11 +1,5 @@
 <template>
 	<div class="board">
-		<div id="opponent-side">
-			<div class="opponent-hand">
-				<PotterCard :name="'Drago'" :color="'green'" />
-			</div>
-			<div class="opponent-table"></div>
-		</div>
 		<div id="player-side">
 			<div
 			@drop="onDrop($event, 1)"
@@ -20,15 +14,18 @@
 			<div
 			class="player-hand"
 			>
+
 				<div @dragstart="startDrag($event, card)" draggable="true" v-for="card in getCards(2)" :key="card.name">
 					<PotterCard :name="card.name" :color="card.color" />
 				</div>
 			</div>
 		</div>
+		<Cauldron />
 	</div>
 </template>
 <script>
 	import PotterCard from '@/components/PotterCard.vue'
+	import Cauldron from '@/components/Cauldron.vue'
 	import { ref } from 'vue'
 
 	export default {
@@ -72,7 +69,10 @@
 				console.log(event)
 			},
 		},
-		components: { PotterCard },
+		components: {
+			PotterCard,
+			Cauldron
+		},
 	}
 </script>
 <style>
