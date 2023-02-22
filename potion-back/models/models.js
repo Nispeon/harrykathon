@@ -1,7 +1,5 @@
-import Plant from '../models/plant.js'
-import Spell from '../models/spell.js'
+import Card from './card.js'
 
 export default {
-  Plant,
-  Spell,
+  Card,
 }
