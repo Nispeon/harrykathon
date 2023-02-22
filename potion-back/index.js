@@ -38,6 +38,13 @@ sequelize
 			socket.on('disconnect', () => {
 				console.log('user disconnected')
 			})
+			socket.on('setBoard', (data) => {
+				socket.broadcast.emit('setBoard', data)
+			})
+
+			socket.on('flipCard', (data) => {
+				socket.broadcast.emit('flipCard', data)
+			})
 		})
 
 		sequelize.sync()
