@@ -23,115 +23,116 @@
 				cards: [
 					{
 						slug: 'aatrox',
-						image: require('@/assets/champions/aatrox.jpeg'),
+						image: require('@/assets/profils/tile000.png'),
 					},
 					{
 						slug: 'akali',
-						image: require('@/assets/champions/akali.jpeg'),
+						image: require('@/assets/profils/tile001.png'),
 					},
 					{
 						slug: 'belveth',
-						image: require('@/assets/champions/belveth.jpeg'),
+						image: require('@/assets/profils/tile002.png'),
 					},
 					{
 						slug: 'caitlyn',
-						image: require('@/assets/champions/caitlyn.jpeg'),
+						image: require('@/assets/profils/tile003.png'),
 					},
 					{
 						slug: 'cassiopeia',
-						image: require('@/assets/champions/cassiopeia.jpeg'),
+						image: require('@/assets/profils/tile004.png'),
 					},
 					{
 						slug: 'diana',
-						image: require('@/assets/champions/diana.jpeg'),
+						image: require('@/assets/profils/tile005.png'),
 					},
 					{
 						slug: 'fiddlesticks',
-						image: require('@/assets/champions/fiddlesticks.jpeg'),
+						image: require('@/assets/profils/tile006.png'),
 					},
 					{
 						slug: 'graves',
-						image: require('@/assets/champions/graves.jpeg'),
+						image: require('@/assets/profils/tile007.png'),
 					},
 					{
 						slug: 'irelia',
-						image: require('@/assets/champions/irelia.jpeg'),
+						image: require('@/assets/profils/tile008.png'),
 					},
 					{
 						slug: 'ivern',
-						image: require('@/assets/champions/ivern.jpeg'),
+						image: require('@/assets/profils/tile000.png'),
 					},
 					{
 						slug: 'leblanc',
-						image: require('@/assets/champions/leblanc.jpeg'),
+						image: require('@/assets/profils/tile009.png'),
 					},
 					{
 						slug: 'leesin',
-						image: require('@/assets/champions/leesin.jpeg'),
+						image: require('@/assets/profils/tile010.png'),
 					},
 					{
 						slug: 'neeko',
-						image: require('@/assets/champions/neeko.jpeg'),
+						image: require('@/assets/profils/tile011.png'),
 					},
 					{
 						slug: 'qiyana',
-						image: require('@/assets/champions/qiyana.jpeg'),
+						image: require('@/assets/profils/tile012.png'),
 					},
+					//here
 					{
 						slug: 'aatrox',
-						image: require('@/assets/champions/aatrox.jpeg'),
+						image: require('@/assets/profils/tile000.png'),
 					},
 					{
 						slug: 'akali',
-						image: require('@/assets/champions/akali.jpeg'),
+						image: require('@/assets/profils/tile001.png'),
 					},
 					{
 						slug: 'belveth',
-						image: require('@/assets/champions/belveth.jpeg'),
+						image: require('@/assets/profils/tile002.png'),
 					},
 					{
 						slug: 'caitlyn',
-						image: require('@/assets/champions/caitlyn.jpeg'),
+						image: require('@/assets/profils/tile003.png'),
 					},
 					{
 						slug: 'cassiopeia',
-						image: require('@/assets/champions/cassiopeia.jpeg'),
+						image: require('@/assets/profils/tile004.png'),
 					},
 					{
 						slug: 'diana',
-						image: require('@/assets/champions/diana.jpeg'),
+						image: require('@/assets/profils/tile005.png'),
 					},
 					{
 						slug: 'fiddlesticks',
-						image: require('@/assets/champions/fiddlesticks.jpeg'),
+						image: require('@/assets/profils/tile006.png'),
 					},
 					{
 						slug: 'graves',
-						image: require('@/assets/champions/graves.jpeg'),
+						image: require('@/assets/profils/tile007.png'),
 					},
 					{
 						slug: 'irelia',
-						image: require('@/assets/champions/irelia.jpeg'),
+						image: require('@/assets/profils/tile008.png'),
 					},
 					{
 						slug: 'ivern',
-						image: require('@/assets/champions/ivern.jpeg'),
+						image: require('@/assets/profils/tile000.png'),
 					},
 					{
 						slug: 'leblanc',
-						image: require('@/assets/champions/leblanc.jpeg'),
+						image: require('@/assets/profils/tile009.png'),
 					},
 					{
 						slug: 'leesin',
-						image: require('@/assets/champions/leesin.jpeg'),
+						image: require('@/assets/profils/tile010.png'),
 					},
 					{
 						slug: 'neeko',
-						image: require('@/assets/champions/neeko.jpeg'),
+						image: require('@/assets/profils/tile011.png'),
 					},
 					{
 						slug: 'qiyana',
-						image: require('@/assets/champions/qiyana.jpeg'),
+						image: require('@/assets/profils/tile012.png'),
 					},
 				],
 			}
@@ -174,7 +175,7 @@
 			})
 			this.cards = array
 			this.cards.sort(() => Math.random() - 0.5)
-			console.log(this.cards)
+			console.log(this.cards.length)
 		},
 	}
 </script>
