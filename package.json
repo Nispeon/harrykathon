@@ -1,0 +1,8 @@
+{
+  "name": "harrykathon",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd potion-landing && (npm run dev&) && cd .. && cd potion-front && (npm run serve&)"
+  }
+}
