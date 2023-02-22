@@ -1,22 +1,20 @@
 <template>
 	<div class="board">
 		<div id="player-side">
-			<div
-			@drop="onDrop($event, 1)"
-			@dragenter.prevent
-			@dragover.prevent
-			class="player-table"
-			>
+			<div class="player-table">
 				<div v-for="card in getCards(1)" :key="card.name">
 					<PotterCard :name="card.name" :color="card.color" />
 				</div>
+				<div class="align-pots">
+					<PotterPot v-for="pot in pots" :key="pot.id" :id="pot.id" />
+				</div>
+				
 			</div>
 			<div
 			class="player-hand"
 			>
-
-				<div @dragstart="startDrag($event, card)" draggable="true" v-for="card in getCards(2)" :key="card.name">
-					<PotterCard :name="card.name" :color="card.color" />
+				<div v-for="card in getCards(2)" :key="card.name">
+					<PotterCard @dragstart="startDrag($event, card)" draggable="true" :name="card.name" :color="card.color" />
 				</div>
 			</div>
 		</div>
@@ -26,52 +24,51 @@
 <script>
 	import PotterCard from '@/components/PotterCard.vue'
 	import PotterCauldron from '@/components/PotterCauldron.vue'
-	import { ref } from 'vue'
+	import PotterPot from '@/components/PotterPot.vue'
 
 	export default {
 		name: 'BoardView',
 
-		setup() {
-			const cards = ref([
-				{ id: 0, name: 'Harry', color: 'pink', list: 1 },
-				{ id: 1, name: 'Albus', color: 'yellow', list: 2 },
-				{ id: 2, name: 'Neville', color: 'red', list: 2 },
-			])
+		data() {
+            return {
+                cards:[
+                    { id: 0, name: 'Harry', color: 'pink', list: 2 },
+                    { id: 1, name: 'Albus', color: 'yellow', list: 2 },
+                    { id: 2, name: 'Neville', color: 'red', list: 2 },
+                ],
+				pots: [
+					{ id: 0, list: 2 },
+					{ id: 1, list: 2 },
+					{ id: 2, list: 2 }
+				]
+            }
+        },
 
-			const getCards = (list) => {
-				return cards.value.filter((card) => card.list == list)
-			}
+        methods: {
+            getCards(list) {
+                return this.cards.filter((card) => card.list == list)
+            },
 
-			const startDrag = (event, card) => {
-				console.log(card)
-				event.dataTransfer.dropEffect = 'move'
-				event.dataTransfer.effectAllowed = 'move'
-				event.dataTransfer.setData('cardID', card.id)
-			}
+            startDrag (event, card) {
+                console.log(card)
+                event.dataTransfer.dropEffect = 'move'
+                event.dataTransfer.effectAllowed = 'move'
+                event.dataTransfer.setData('cardID', card.id)
+            },
 
-			const onDrop = (event, list) => {
-				const cardID = event.dataTransfer.getData('cardID')
-				console.log('list ', list)
-				const card = cards.value.find((card) => card.id == cardID)
-				console.log('card ', card, cards.value)
-				card.list = list
-			}
+            onDrop (event, list) {
+                const cardID = event.dataTransfer.getData('cardID')
+                const card = this.cards.find((card) => card.id == cardID)
+                card.list = list
+				
+            },
+        },
 
-			return {
-				getCards,
-				onDrop,
-				startDrag
-			}
-		},
 
-		methods: {
-			log(event) {
-				console.log(event)
-			},
-		},
 		components: {
 			PotterCard,
-			PotterCauldron
+			PotterCauldron,
+			PotterPot
 		},
 	}
 </script>
@@ -117,6 +114,7 @@
 		background-color: red;
 		width: 100vw;
 		height: 20vh;
+		margin-top: 100px;
 	}
 
 	.opponent-table {
@@ -132,8 +130,14 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
-		background-color: black;
 		width: 100%;
 		height: 20vh;
+	}
+
+	.player-table .align-pots {
+		display: flex;
+		width: 100%;
+		justify-content: center;
+		padding: 30px 0;
 	}
 </style>
