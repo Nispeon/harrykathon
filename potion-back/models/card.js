@@ -1,28 +1,21 @@
 import { DataTypes } from 'sequelize'
 import database from '../database.js'
 
-const Spell = database.define('spell', {
+const Card = database.define('card', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true,
     allowNull: false,
   },
-  name: {
+  slug: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  description: {
+  image: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  cost: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-  color: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  }
 })
-export default Spell
+
+export default Card
