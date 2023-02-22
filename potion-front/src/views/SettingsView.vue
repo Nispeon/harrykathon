@@ -13,7 +13,7 @@
 
 <script>
 export default {
-    name: "Settings",
+    name: "SettingsView",
 
     methods: {
         goTo(route) {
