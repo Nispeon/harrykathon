@@ -1,123 +1,10 @@
 import { createStore } from 'vuex'
-
+import { globals } from '../main'
 export default createStore({
   state: {
     user: null,
     checker: [],
-    cards: [
-      {
-        slug: 'aatrox',
-        image: require('@/assets/champions/aatrox.jpeg'),
-      },
-      {
-        slug: 'akali',
-        image: require('@/assets/champions/akali.jpeg'),
-      },
-      {
-        slug: 'belveth',
-        image: require('@/assets/champions/belveth.jpeg'),
-      },
-      {
-        slug: 'caitlyn',
-        image: require('@/assets/champions/caitlyn.jpeg'),
-      },
-      {
-        slug: 'cassiopeia',
-        image: require('@/assets/champions/cassiopeia.jpeg'),
-      },
-      {
-        slug: 'diana',
-        image: require('@/assets/champions/diana.jpeg'),
-      },
-      {
-        slug: 'fiddlesticks',
-        image: require('@/assets/champions/fiddlesticks.jpeg'),
-      },
-      {
-        slug: 'graves',
-        image: require('@/assets/champions/graves.jpeg'),
-      },
-      {
-        slug: 'irelia',
-        image: require('@/assets/champions/irelia.jpeg'),
-      },
-      {
-        slug: 'ivern',
-        image: require('@/assets/champions/ivern.jpeg'),
-      },
-      {
-        slug: 'leblanc',
-        image: require('@/assets/champions/leblanc.jpeg'),
-      },
-      {
-        slug: 'leesin',
-        image: require('@/assets/champions/leesin.jpeg'),
-      },
-      {
-        slug: 'neeko',
-        image: require('@/assets/champions/neeko.jpeg'),
-      },
-      {
-        slug: 'qiyana',
-        image: require('@/assets/champions/qiyana.jpeg'),
-      },
-      {
-        slug: 'aatrox',
-        image: require('@/assets/champions/aatrox.jpeg'),
-      },
-      {
-        slug: 'akali',
-        image: require('@/assets/champions/akali.jpeg'),
-      },
-      {
-        slug: 'belveth',
-        image: require('@/assets/champions/belveth.jpeg'),
-      },
-      {
-        slug: 'caitlyn',
-        image: require('@/assets/champions/caitlyn.jpeg'),
-      },
-      {
-        slug: 'cassiopeia',
-        image: require('@/assets/champions/cassiopeia.jpeg'),
-      },
-      {
-        slug: 'diana',
-        image: require('@/assets/champions/diana.jpeg'),
-      },
-      {
-        slug: 'fiddlesticks',
-        image: require('@/assets/champions/fiddlesticks.jpeg'),
-      },
-      {
-        slug: 'graves',
-        image: require('@/assets/champions/graves.jpeg'),
-      },
-      {
-        slug: 'irelia',
-        image: require('@/assets/champions/irelia.jpeg'),
-      },
-      {
-        slug: 'ivern',
-        image: require('@/assets/champions/ivern.jpeg'),
-      },
-      {
-        slug: 'leblanc',
-        image: require('@/assets/champions/leblanc.jpeg'),
-      },
-      {
-        slug: 'leesin',
-        image: require('@/assets/champions/leesin.jpeg'),
-      },
-      {
-        slug: 'neeko',
-        image: require('@/assets/champions/neeko.jpeg'),
-      },
-      {
-        slug: 'qiyana',
-        image: require('@/assets/champions/qiyana.jpeg'),
-      },
-    ]
+    cards: [],
   },
   getters: {
   },
@@ -133,6 +20,26 @@ export default createStore({
     getUser(state) {
       state.user = JSON.parse(localStorage.getItem('user'))
     },
+    async getCards(state) {
+      await fetch('http://localhost:3000/api/cards')
+        .then((response) => response.json())
+        .then((data) => {
+          data = data.sort(() => Math.random() - 0.5).slice(0, 12)
+          this.commit('setBoard', data)
+        })
+    },
+    setBoard(state, cards) {
+			let array = []
+			cards.forEach((card) => {
+				array.push(card)
+				// create a copy of the card with "-2" to the end and push it to the array
+        array.push({ ...card, slug: card.slug + '-2' })
+			})
+			state.cards = array
+			state.cards.sort(() => Math.random() - 0.5)
+
+      globals.$socket.emit('setBoard', state.cards)
+    },
     flipCard(state, slug) {
       document.querySelector('.' + slug).classList.add('flip')
     },
@@ -145,6 +52,8 @@ export default createStore({
       state.checker.push(slug)
 
       this.commit('flipCard', slug)
+
+      globals.$socket.emit('flipCard', slug)
 
       if (state.checker.length === 2) {
         if (

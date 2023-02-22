@@ -2,7 +2,7 @@
 		<img
 				@click="checkCard(card.slug)"
 				:class="card.slug"
-				:src="card.image"
+				:src="require('@/assets/profils/' + card.image)"
 				:alt="card.name"
 			/>
 </template>
