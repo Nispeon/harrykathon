@@ -40,7 +40,7 @@
 </head>
 <body>
 <canvas id="bg"></canvas>
-<a href="http://localhost:8080">Start</a>
+<a id="startlink" href="http://localhost:8080">Start</a>
 <audio loop id="audio">
   <source src="./assets/music/menuloop.mp3" type="audio/mp3">
 </audio>
@@ -59,9 +59,12 @@
   import wandModel from './assets/models/wand/scene.gltf?url';
   import hagridModel from './assets/models/hagrid/hagrid.glb?url';
 
+
   window.addEventListener('resize', () => {
       window.location.reload();
   });
+
+    document.querySelector("#startlink").href = `http://${window.location.host.split(':')[0]}:8080`;
 
   let playAttempt = setInterval(() => {
   document.querySelector("#audio")
