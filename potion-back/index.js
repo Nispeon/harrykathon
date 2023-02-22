@@ -6,8 +6,7 @@ import cors from 'cors'
 import morgan from 'morgan'
 
 // models
-import Plant from './models/plant.js'
-import Spell from './models/spell.js'
+import './models/models.js'
 
 const app = express()
 const port = 3000
