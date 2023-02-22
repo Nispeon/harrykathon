@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import BoardView from '../views/BoardView.vue'
 
 const routes = [
   {
@@ -8,9 +9,9 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/about',
-    name: 'about',
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    path: '/board',
+    name: 'board',
+    component: BoardView
   },
   {
     path: '/create',
