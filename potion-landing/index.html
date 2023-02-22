@@ -55,8 +55,8 @@
   import mainbg from './assets/main.jpg';
   import titleTexture from './assets/titleTexture.jpg';
   import titleModel from './assets/models/title.STL?url';
-  import potionModel from './assets/models/potion/scene.gltf?url';
-  import cauldronModel from './assets/models/cauldron/scene.gltf?url';
+  import nimbusModel from './assets/models/nimbus/scene.gltf?url';
+  import wandModel from './assets/models/wand/scene.gltf?url';
   import hagridModel from './assets/models/hagrid/hagrid.glb?url';
 
   window.addEventListener('resize', () => {
@@ -126,41 +126,40 @@
       }
   )
 
-  let potion;
+  let nimbus;
   gltfLoader.load(
-      potionModel,
+      nimbusModel,
       function (gltf) {
-        potion = gltf.scene;
-        potion.position.set(10, -3, 0);
-        potion.rotation.set(0, 1, 0);
-        potion.scale.set(0.007, 0.007, 0.007);
-        scene.add(potion);
+        nimbus = gltf.scene;
+        nimbus.position.set(10, -3, 0);
+        nimbus.rotation.set(10, 1, 10);
+        nimbus.scale.set(0.05, 0.05, 0.05);
+        scene.add(nimbus);
 
         const glow = new THREE.PointLight(0x0000ff, 1, 100);
         glow.position.set(0, 0, 0);
         glow.intensity = 2;
         glow.decay = 10;
-        potion.add(glow);
+        nimbus.add(glow);
     }
   );
 
-  let cauldron;
+  let wand;
   gltfLoader.load(
-      cauldronModel,
+      wandModel,
       function (gltf) {
-        cauldron = gltf.scene;
-        cauldron.position.set(-10, -2, 0);
-        cauldron.rotation.set(0, 1, 0);
-        cauldron.scale.set(1.5, 1.5, 1.5);
-        cauldron.rotation.set(0.2, 0, -0.2);
+        wand = gltf.scene;
+        wand.position.set(-10, -2, 0);
+        wand.scale.set(30, 30, 30);
+        wand.rotation.set(10.2, 10, -0.2);
 
         const glow = new THREE.PointLight(0x00ff00, 1, 100);
         glow.position.set(0, 0, 0);
         glow.intensity = 1;
         glow.decay = 10;
-        cauldron.add(glow);
+        wand.add(glow);
 
-        scene.add(cauldron);
+        scene.add(wand);
       }
   );
 
@@ -232,15 +231,18 @@
         title.position.x = -7 + Math.cos(Date.now() / 1000) * 0.2;
     }
 
-    if (potion) {
-        potion.position.y = -3 + Math.sin(Date.now() / 1000) * 0.1;
-        potion.position.x = 10 + Math.sin(Date.now() / 1000) * 0.06;
+    if (nimbus) {
+        nimbus.position.y = -3 + Math.sin(Date.now() / 1000) * 0.1;
+        nimbus.position.x = 10 + Math.sin(Date.now() / 1000) * 0.06;
+        nimbus.rotation.z += 0.01;
+        nimbus.rotation.y += 0.01;
     }
 
-    if (cauldron) {
-      cauldron.position.y = -2 + Math.sin(Date.now() / 1000) * 0.1;
-      cauldron.position.x = -10 + Math.sin(Date.now() / 1000) * 0.06;
-      cauldron.rotation.y += 0.001;
+    if (wand) {
+      wand.position.y = -2 + Math.sin(Date.now() / 1000) * 0.1;
+      wand.position.x = -10 + Math.sin(Date.now() / 1000) * 0.06;
+      wand.rotation.y += 0.001;
+      wand.rotation.x += 0.001;
     }
 
     if (hagrid) {

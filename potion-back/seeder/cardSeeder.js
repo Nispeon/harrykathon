@@ -5,51 +5,80 @@ const seed = async () => {
 
     const cards = [
         {
-            slug: "the-fool",
-            image: "https://i.imgur.com/9ZQ9Z9u.jpg",
+            slug: "voldermort",
+            image: "tile000.png",
         },
         {
-            slug: "the-magician",
-            image: "https://i.imgur.com/9ZQ9Z9u.jpg",
+            slug: "drago",
+            image: "tile001.png",
         },
         {
-            slug: "the-high-priestess",
-            image: "https://i.imgur.com/9ZQ9Z9u.jpg",
+            slug: "snape",
+            image: "tile002.png",
         },
         {
-            slug: "the-empress",
-            image: "https://i.imgur.com/9ZQ9Z9u.jpg",
+            slug: "mcgonagall",
+            image: "tile003.png",
         },
         {
-            slug: "the-emperor",
-            image: "https://i.imgur.com/9ZQ9Z9u.jpg",
+            slug: "narcissa",
+            image: "tile004.png",
         },
         {
-            slug: "the-hierophant",
-            image: "https://i.imgur.com/9ZQ9Z9u.jpg",
+            slug: "george",
+            image: "tile005.png",
         },
         {
-            slug: "the-lovers",
-            image: "https://i.imgur.com/9ZQ9Z9u.jpg",
+            slug: "dean",
+            image: "tile006.png",
         },
         {
-            slug: "the-chariot",
-            image: "https://i.imgur.com/9ZQ9Z9u.jpg",
+            slug: "luna",
+            image: "tile007.png",
         },
         {
-            slug: "strength",
-            image: "https://i.imgur.com/9ZQ9Z9u.jpg",
+            slug: "cedric",
+            image: "tile008.png",
         },
         {
-            slug: "the-hermit",
-            image: "https://i.imgur.com/9ZQ9Z9u.jpg",
+            slug: "viktor",
+            image: "tile009.png",
         },
         {
-            slug: "wheel-of-fortune",
-            image: "https://i.imgur.com/9ZQ9Z9u.jpg",
+            slug: "foloeil",
+            image: "tile010.png",
         },
         {
-            slug: "justice",
-            image: "https://i.imgur.com/9ZQ9Z9u.jpg",
-        }
-}
+            slug: "molly",
+            image: "tile011.png",
+        },
+        {
+            slug: "fred",
+            image: "tile012.png",
+        },
+        {
+            slug: "rusard",
+            image: "tile013.png",
+        },
+        {
+            slug: "fleur",
+            image: "tile014.png",
+        },
+        {
+            slug: "dudley",
+            image: "tile015.png",
+        },
+        {
+            slug: "harry",
+            image: "tile016.png",
+        },
+        {
+            slug: "quirrel",
+            image: "tile017.png",
+        },
+    ];
+
+    await Card.bulkCreate(cards);
+};
+
+export default seed;
