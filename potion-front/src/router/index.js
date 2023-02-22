@@ -12,6 +12,21 @@ const routes = [
     path: '/board',
     name: 'board',
     component: BoardView
+  },
+  {
+    path: '/create',
+    name: 'create',
+    component: () => import('../views/CreateView.vue')
+  },
+  {
+    path: '/join',
+    name: 'join',
+    component: () => import('../views/JoinView.vue')
+  },
+  {
+    path: '/settings',
+    name: 'settings',
+    component: () => import('../views/SettingsView.vue')
   }
 ]
 
