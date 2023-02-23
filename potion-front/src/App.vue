@@ -5,6 +5,10 @@
 			<button @click="logout">Logout</button>
 		</nav>
 
+		<audio autoplay loop id="audio">
+			<source :src="require('@/assets/music/menualt.mp3')" type="audio/mp3">
+		</audio>
+
 		<router-view/>
 	</div>
 </template>
@@ -40,6 +44,17 @@
 			}
 		}
 	}
+
+	let playAttempt = setInterval(() => {
+	document.querySelector("#audio")
+			.play()
+			.then(() => {
+				clearInterval(playAttempt);
+			})
+			.catch((error) => {
+				console.log("Unable to play the video, User has not interacted yet.");
+			});
+	}, 1000);
 </script>
 
 <style>
