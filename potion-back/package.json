@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "node --watch index.js",
-    "seed": "node seed.js"
+    "seed": "node seed.js",
+    "build": "node seed.js && node --watch index.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
