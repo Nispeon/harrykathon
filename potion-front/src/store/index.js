@@ -72,11 +72,15 @@ export default createStore({
             document.querySelector('.' + slug).classList.add('disabled')
           })
 
-          state.score += 10
+          globals.$socket.emit('score', {
+            scorePlayer1: state.scorePlayer1,
+            scorePlayer2: state.scorePlayer2,
+          })
 
           state.checker = []
         } else {
           state.turn = state.turn === 1 ? 2 : 1
+          globals.$socket.emit('turn', state.turn)
           console.log('no match')
           state.checker.forEach((slug) => {
             setTimeout(() => {

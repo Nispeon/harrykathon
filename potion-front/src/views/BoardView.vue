@@ -4,11 +4,17 @@
 		<span>Player 2 :{{ scorePlayer2 }}</span>
 		<span>Joueur :{{ turn }}</span>
 		<div
+			v-if="!endGame"
 			v-for="card in cards"
 			:key="card.slug"
 			class="card"
 		>
 			<PotterCard :card="card" />
+		</div>
+		<div v-else>
+			<h1>Fin de la partie</h1>
+			<h2>Le gagnant est : {{ scorePlayer1 > scorePlayer2 ? 'Player 1' : 'Player 2' }}</h2>
+			<button @click="reload">Recommencer</button>
 		</div>
 	</section>
 </template>
@@ -32,6 +38,14 @@
 			cards() {
 				return this.$store.state.cards
 			},
+			endGame() {
+				return this.scorePlayer1 + this.scorePlayer2 === 120
+			}
+		},
+		methods: {
+			reload() {
+				this.$socket.emit('restart')
+			}
 		},
 		created() {
 			this.$store.commit('getCards')
@@ -40,6 +54,16 @@
 			})
 			this.$socket.on('flipCard', (slug) => {
 				this.$store.commit('checkCard', slug)
+			})
+			this.$socket.on('restart', () => {
+				window.location.reload()
+			})
+			this.$socket.on('setScore', (score) => {
+				this.$store.state.scorePlayer1 = score.scorePlayer1
+				this.$store.state.scorePlayer2 = score.scorePlayer2
+			})
+			this.$socket.on('turn', (turn) => {
+				this.$store.state.turn = turn
 			})
 		},
 	}

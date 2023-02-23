@@ -43,7 +43,21 @@ sequelize
 			})
 
 			socket.on('flipCard', (data) => {
+				console.log('retourner')
 				socket.broadcast.emit('flipCard', data)
+			})
+
+			socket.on('restart', (data) => {
+				console.log('coucou')
+				socket.emit('restart', data)
+			})
+
+			socket.on('score', (data) => {
+				socket.broadcast.emit('score', data)
+			})
+
+			socket.on('turn', (data) => {
+				socket.broadcast.emit('turn', data)
 			})
 		})
 
