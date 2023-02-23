@@ -2,8 +2,7 @@
   <div class="container">
     <div class="menu">
       <nav>
-        <router-link to="/create">Create game</router-link>
-        <router-link to="/join">Join</router-link>
+        <router-link to="/board">Play</router-link>
         <router-link to="/settings">Settings</router-link>
       </nav>
     </div>
@@ -11,15 +10,26 @@
 </template>
 
 <style scoped>
+
 .container {
   width: 100%;
   min-height: 100vh;
+  background-position: bottom;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url('https://www.gazette-du-sorcier.com/wp-content/uploads/2022/07/WBTourLondon-Making-Of-Studio-Tour-serre-botannique-17.jpg');
+  padding-top: 50px;
 }
 
 .container .menu {
-  width: 100%;
+  width: 60%;
   display: flex;
+  align-self: center;
   justify-content: center;
+  background-color: rgb(235 183 52 / 0.5);
+  margin-left: 20%;
+  border-radius: 20px;
+  border: solid gold;
 }
 
 .container .menu nav {
@@ -30,9 +40,14 @@
 .container .menu a {
   text-decoration: none;
   text-align: center;
-  color: white;
+  color: black;
   font-size: 2.5rem;
   padding: 5px 0;
+}
+
+.container .menu a:hover {
+
+  color: gold;
 }
 
 canvas {
