@@ -7,7 +7,7 @@ import {io} from 'socket.io-client'
 const app = createApp(App)
 const globals = app.config.globalProperties
 
-globals.$socket = io('http://51.254.118.8', {
+globals.$socket = io('http://51.254.118.8:3000', {
   transports: ['websocket', 'polling'],
 })
 app.use(store)
