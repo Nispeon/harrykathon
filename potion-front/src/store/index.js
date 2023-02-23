@@ -8,6 +8,7 @@ export default createStore({
     cards: [],
     scorePlayer1: 0,
     scorePlayer2: 0,
+    matchId: null,
   },
   getters: {
   },
@@ -42,7 +43,6 @@ export default createStore({
 			state.cards.sort(() => Math.random() - 0.5)
 
       globals.$socket.emit('setBoard', state.cards)
-
     },
     flipCard(state, slug) {
       document.querySelector('.' + slug).classList.add('flip')
