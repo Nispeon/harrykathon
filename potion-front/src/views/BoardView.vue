@@ -120,7 +120,10 @@
 	.card {
 		height: 120px;
 		width: 80px;
-		background-color: bisque;
+		/*background-color: bisque;*/
+    background-image: url("@/assets/card.png");
+    background-size: cover;
+    border-radius: 10px;
 	}
 
 	.card img {
