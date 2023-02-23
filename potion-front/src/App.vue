@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<nav v-if="user">
+		<nav class="userLogout" v-if="user">
 			<span>{{ user.user.name }}</span>
 			<button @click="logout">Logout</button>
 		</nav>
@@ -82,7 +82,10 @@
   min-height: 100vh;
 }
 
-nav {
-  padding: 30px;
+.userLogout {
+	position:absolute;
+	top: 0;
+	right: 0;
+	padding: 30px;
 }
 </style>
