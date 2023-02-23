@@ -21,6 +21,8 @@ The project has multiple subprojects, you must start them all.
 - In `potion-front` -> `npm run serve`
 - In `potion-back` -> `npm run start`
 
+It runs on `http://localhost:5173`.
+
 #### Alternatively
 
 You can run `npm run start` in the root folder, it will start all the projects.
