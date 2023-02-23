@@ -25,7 +25,7 @@ export default createStore({
       state.user = JSON.parse(localStorage.getItem('user'))
     },
     async getCards(state) {
-      await fetch('http://localhost:3000/api/cards')
+      await fetch('http://51.254.118.8:3000/api/cards')
         .then((response) => response.json())
         .then((data) => {
           data = data.sort(() => Math.random() - 0.5).slice(0, 12)

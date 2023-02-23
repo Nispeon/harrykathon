@@ -37,6 +37,8 @@ export default {
     font-size: 3rem;
     cursor: pointer;
     padding: 20px;
+    position: absolute;
+    left: 0;
 }
 .container .settings-container .settings-title {
     color: white;
