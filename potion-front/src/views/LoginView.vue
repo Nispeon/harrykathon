@@ -54,11 +54,6 @@
 	}
 </script>
 <style scopped>
-* {
-	font-family: 'ringbearermedium';
-	color: #2c3e50;
-}
-
 .loginContainer {
 	width: 100vw;
 	height: 100vh;
@@ -81,6 +76,8 @@ form {
 	align-items: center;
 	justify-content: center;
 	gap: 40px;
+	font-family: 'ringbearermedium';
+	color: #2c3e50;
 }
 
 .inputContainer {
@@ -96,6 +93,8 @@ input {
 	font-size: 16px;
 	padding: 0 10px;
 	border: none;
+	font-family: 'ringbearermedium';
+	color: #2c3e50;
 }
 
 button {

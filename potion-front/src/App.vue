@@ -1,9 +1,13 @@
 <template>
 	<div>
-		<nav v-if="user">
+		<nav class="userLogout" v-if="user">
 			<span>{{ user.user.name }}</span>
 			<button @click="logout">Logout</button>
 		</nav>
+
+		<audio autoplay loop id="audio">
+			<source :src="require('@/assets/music/menualt.mp3')" type="audio/mp3">
+		</audio>
 
 		<router-view/>
 	</div>
@@ -40,6 +44,17 @@
 			}
 		}
 	}
+
+	let playAttempt = setInterval(() => {
+	document.querySelector("#audio")
+			.play()
+			.then(() => {
+				clearInterval(playAttempt);
+			})
+			.catch((error) => {
+				console.log("Unable to play the video, User has not interacted yet.");
+			});
+	}, 1000);
 </script>
 
 <style>
@@ -67,7 +82,10 @@
   min-height: 100vh;
 }
 
-nav {
-  padding: 30px;
+.userLogout {
+	position:absolute;
+	top: 0;
+	right: 0;
+	padding: 30px;
 }
 </style>

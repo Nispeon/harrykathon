@@ -1,22 +1,30 @@
 <template>
-	<section class="cards">
-		<span>Player 1 :{{ scorePlayer1 }}</span>
-		<span>Player 2 :{{ scorePlayer2 }}</span>
-		<span>Joueur :{{ turn }}</span>
-		<div
+	<div class="gameContainer">
+		<div class="playerContainer">
+			<span class="player">Player 1 :{{ scorePlayer1 }}</span>
+			<span class="player">Player 2 :{{ scorePlayer2 }}</span>
+			<span class="turn">Joueur :{{ turn }}</span>
+		</div>
+		<section 
+			class="cards"
 			v-if="!endGame"
-			v-for="card in cards"
-			:key="card.slug"
-			class="card"
 		>
-			<PotterCard :card="card" />
+			<div
+				v-for="card in cards"
+				:key="card.slug"
+				class="card"
+			>
+				<PotterCard :card="card" />
+			</div>
+		</section>
+		<div v-else class="endGameContainer">
+			<div class="endGame">
+				<h1>Fin de la partie</h1>
+				<h2>Le gagnant est : {{ scorePlayer1 > scorePlayer2 ? 'Player 1' : 'Player 2' }}</h2>
+				<button @click="reload">Recommencer</button>
+			</div>
 		</div>
-		<div v-else>
-			<h1>Fin de la partie</h1>
-			<h2>Le gagnant est : {{ scorePlayer1 > scorePlayer2 ? 'Player 1' : 'Player 2' }}</h2>
-			<button @click="reload">Recommencer</button>
-		</div>
-	</section>
+	</div>
 </template>
 <script>
 	import PotterCard from '@/components/PotterCard.vue'
@@ -109,21 +117,37 @@
 	}
 </script>
 <style>
-	.cards {
-		padding: 20px;
+	.playerContainer {
 		display: flex;
 		justify-content: space-around;
-		flex-wrap: wrap;
-		gap: 60px;
+		align-items: center;
+		font-size: 20px;
+		padding: 20px 0 50px;
+	}
+
+	.player {
+		color: #fff;
+	}
+
+	.turn {
+		color: cyan;
+	}
+	
+	.cards {
+		margin: auto;
+		padding: 20px;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+		gap: 50px;
 	}
 
 	.card {
+		margin: auto;
 		height: 120px;
 		width: 80px;
-		/*background-color: bisque;*/
-    background-image: url("@/assets/card.png");
-    background-size: cover;
-    border-radius: 10px;
+		background-image: url("@/assets/card.png");
+		background-size: cover;
+		border-radius: 10px;
 	}
 
 	.card img {
@@ -139,5 +163,27 @@
 
 	.disabled {
 		opacity: 0.5 !important;
+	}
+
+	.endGameContainer {
+		margin: 100px auto 0;
+		width: 500px;
+		background: -webkit-linear-gradient(top,#7579ff,#b224ef);
+		padding: 55px 55px 37px;
+		border-radius: 10px;
+		color: black;
+	}
+
+	.endGame {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 30px;
+	}
+
+	button {
+		font-family: 'ringbearermedium';
+		color: #2c3e50;
 	}
 </style>
